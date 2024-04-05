@@ -5,10 +5,14 @@ VERSION_FILE=artifacts/version.txt
 # Get the version from the version file
 nextRelease=$(cat $VERSION_FILE)
 
+# Replace version in the plugin
+echo "Replacing version in the plugin"
+sed -i "s/public override string ModuleVersion => \"development\";/public override string ModuleVersion => \"${nextRelease}\";/" MatchZy.cs
+
 # Create base package
 echo "Creating base package"
 dotnet publish -o artifacts/package/addons/counterstrikesharp/plugins/MatchZy
-cp -r cfg artifacts/package 
+cp -r cfg artifacts/package
 zip -r artifacts/MatchZy-${nextRelease}.zip artifacts/package
 
 # Install CSSharp
@@ -29,3 +33,10 @@ cd ../../
 dotnet publish -o artifacts/package/addons/counterstrikesharp/plugins/MatchZy
 
 zip -r artifacts/MatchZy-${nextRelease}-with-cssharp.zip artifacts/package
+
+# Cleanup
+echo "Cleaning up"
+
+# Remove version from the plugin
+echo "Removing version from the plugin"
+sed -i "s/public override string ModuleVersion => \"${nextRelease}\";/public override string ModuleVersion => \"development\";/" MatchZy.cs
