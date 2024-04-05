@@ -57,3 +57,4 @@ MIT
 * [CHR15cs](https://github.com/CHR15cs) - Helped me a lot with the practice mode!
 * [K4ryuu](https://github.com/K4ryuu) - Awesome job on damage report!
 * [DEAFPS](https://github.com/DEAFPS) - Great contribution for Practice mode!
+ 
