@@ -49,8 +49,7 @@
                 "failComment": false,
                 "assets": [
                     {
-                        "path": "artifacts/*.zip",
-                        "label": "Release ${nextRelease.version}"
+                        "path": "artifacts/*.zip"
                     }
                 ]
             }
