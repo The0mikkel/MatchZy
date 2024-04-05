@@ -1,6 +1,6 @@
 {
     "name": "@shobhit-pathak/matchzy",
-    "version": "1.0.0-r.1",
+    "version": "1.0.0-r.2",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
     },
