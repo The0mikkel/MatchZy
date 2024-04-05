@@ -79,7 +79,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: $MATCHZY_VERSION
+          tag_name: ${{ env.MATCHZY_VERSION }}
           draft: false
           prerelease: false
           files: |
