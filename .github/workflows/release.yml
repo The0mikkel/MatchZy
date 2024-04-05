@@ -1,0 +1,49 @@
+name: Release
+
+on:
+  push: 
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+jobs:
+  semantic-realease:
+    name: Semantic release
+    runs-on: ubuntu-latest
+    permissions:
+        contents: write
+        issues: write
+        pull-requests: write
+        packages: write
+        id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+            node-version: "21"
+            cache: "npm"
+      - name: Install dependencies
+        run: npm clean-install --force
+      - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
+        run: npm audit signatures
+      - name: Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+      - name: Get version
+        id: version
+        run: echo version=$(cat artifacts/version.txt | grep -oP "next release version is \K.*") >> $GITHUB_OUTPUT
+      - name: Update development branch to latest release
+        if: github.ref == 'refs/heads/main'
+        run: >-
+          URL=$(gh pr create -B develop -H main --title 'Update develop to latest release' --body 'Merge main into develop to update the develop branch to the latest release version' --label version-update) &&
+          gh pr merge $URL -t "CI: Updated version to match newest version [skip ci]" -b "This was done automatically by the CI pipeline" --merge
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

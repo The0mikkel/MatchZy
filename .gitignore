@@ -1,2 +1,11 @@
 obj/*
 bin/*
+
+# NPM elements
+node_modules/
+
+# Publish elements'
+.dotnet/*
+.local/*
+.nuget/*
+artifacts/*

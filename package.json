@@ -1,0 +1,16 @@
+{
+    "name": "@shobhit-pathak/matchzy",
+    "version": "0.8.0",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "devDependencies": {
+        "@semantic-release/commit-analyzer": "^12.0.0",
+        "@semantic-release/release-notes-generator": "^13",
+        "@semantic-release/npm": "^12.0.0",
+        "@semantic-release/git": "^10.0.1",
+        "@semantic-release/exec": "^6.0.3",
+        "@semantic-release/github": "^10.0.2",
+        "conventional-changelog-conventionalcommits": "^7.0.2"
+    }
+}

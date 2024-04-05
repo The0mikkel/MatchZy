@@ -1,0 +1,59 @@
+{
+    "branches": [
+        "main",
+        {
+            "name": "develop",
+            "prerelease": "r"
+        }
+    ],
+    "plugins": [
+        [
+            "@semantic-release/commit-analyzer",
+            {
+                "preset": "conventionalcommits"
+            }
+        ],
+        [
+            "@semantic-release/release-notes-generator",
+            {
+                "preset": "conventionalcommits"
+            }
+        ],
+        [
+            "@semantic-release/npm",
+            {
+                "npmPublish": false
+            }
+        ],
+        [
+            "@semantic-release/git",
+            {
+                "assets": [
+                    "package.json",
+                    "package-lock.json"
+                ]
+            }
+        ],
+        [
+            "@semantic-release/exec",
+            {
+                "verifyConditionsCmd": "echo 'Verify conditions'",
+                "verifyReleaseCmd": "mkdir artifacts && echo '${nextRelease.version}' > artifacts/version.txt",
+                "prepareCmd": "./package.sh"
+            }
+        ],
+        [
+            "@semantic-release/github",
+            {
+                "successComment": false,
+                "failComment": false,
+                "assets": [
+                    {
+                        "path": "artifacts/*.zip",
+                        "label": "Release ${nextRelease.version}"
+                    }
+                ]
+            }
+        ]
+    ]
+}
